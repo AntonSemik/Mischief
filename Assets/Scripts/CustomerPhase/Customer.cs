@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Customer : MonoBehaviour
@@ -7,11 +8,13 @@ public class Customer : MonoBehaviour
     public delegate void OnTrustChange(int newValue);
     public static OnTrustChange onTrustChange;
 
-    public delegate void OnPlayerResponse(int trustChange); //can add animations to pass here and other stuff
+    public delegate void OnPlayerResponse(int trustChange, string answer); //can add animations to pass here and other stuff
     public static OnPlayerResponse onPlayerResponse;
 
     public string customerName = "Kate";
     public int baseTrust = 50;
+
+    public TMP_Text answerText;
 
     int maxTrust = 100;
     int currentTrust;
@@ -43,11 +46,13 @@ public class Customer : MonoBehaviour
         if (onTrustChange != null) onTrustChange(currentTrust);
     }
 
-    void ReactToPlayerResponse(int trustChange)
+    void ReactToPlayerResponse(int trustChange, string answer)
     {
         ChangeTrust(trustChange);
 
-        StartCoroutine(WaitToMoveOn(1f));
+        answerText.text = answer;
+
+        StartCoroutine(WaitToMoveOn(0.2f));
     }
 
     void ChangeTrust(int value)

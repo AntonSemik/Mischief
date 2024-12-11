@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerResponse : MonoBehaviour
 {
     public string responseText; //load those from file or whatever
+    public string customerAnswer;
     public int trustChange;
 
     public TMP_Text text;
@@ -17,6 +18,6 @@ public class PlayerResponse : MonoBehaviour
 
     public void OnSelected()
     {
-        if(Customer.onPlayerResponse != null) Customer.onPlayerResponse(trustChange);
+        if(Customer.onPlayerResponse != null) Customer.onPlayerResponse(trustChange, customerAnswer);
     }
 }

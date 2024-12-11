@@ -16,18 +16,30 @@ public class ResponseBlockManager : MonoBehaviour
         onNextBlock += NextBlock;
         Customer.onPlayerResponse += ResponseTaken;
 
-        foreach (GameObject gameObject in responseBlocks)
-        {
-            gameObject.SetActive(false);
-        }
+        ResetBlocks();
+    }
 
-        responseBlocks[currentBlock].SetActive(true);
+    private void OnEnable()
+    {
+        ResetBlocks();
     }
 
     private void OnDestroy()
     {
         onNextBlock -= NextBlock;
         Customer.onPlayerResponse -= ResponseTaken;
+    }
+
+    void ResetBlocks()
+    {
+        currentBlock= 0;
+
+        foreach (GameObject gameObject in responseBlocks)
+        {
+            gameObject.SetActive(false);
+        }
+
+        responseBlocks[currentBlock].SetActive(true);
     }
 
     void NextBlock()
@@ -40,7 +52,7 @@ public class ResponseBlockManager : MonoBehaviour
         responseBlocks[currentBlock].gameObject.SetActive(true);
     }
 
-    void ResponseTaken(int value)
+    void ResponseTaken(int value, string line)
     {
         responseBlocks[currentBlock].SetActive(false);
     }
